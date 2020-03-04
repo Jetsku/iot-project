@@ -24,6 +24,12 @@ const getGreetingFromBackend = async () => {
   return { greeting: 'Could not get greeting from backend' };
 };
 
+const getEvents = async () => {
+  const url = `${backendUrl}/api/events`;
+  const response = await fetch(url);
+  return response.json();
+}
+
 
 const BackendGreeting = (props) => (
   <div>
@@ -34,6 +40,14 @@ const BackendGreeting = (props) => (
     </p>
   </div>
 );
+
+const BackendEvent = (props) => (
+  <div>
+    <p>
+      Temperature: {props.temperature}
+    </p>
+  </div>
+)
 
 BackendGreeting.propTypes = {
   greeting: PropTypes.string,
@@ -48,17 +62,25 @@ class App extends Component {
     super(props);
     this.state = {
       greeting: '',
+      events: [],
     };
   }
 
   async componentDidMount() {
     const response = await getGreetingFromBackend();
-    this.setState({ greeting: response.greeting });
+    const events = await getEvents();
+    console.log(events);
+    this.setState({ greeting: response.greeting, events: events.results });
   }
 
   render() {
     return (
-      <BackendGreeting greeting={this.state.greeting} />
+      <div>
+        <BackendGreeting greeting={this.state.greeting} />
+        {this.state.events.map((events) => (
+          <BackendEvent temperature={events.temperature}/>
+        ))}
+      </div>
     );
   }
 }
