@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import {Table} from "./components/Temptable.jsx"
 import './assets/stylesheets/style.css';
 
 const { BACKEND_PORT } = process.env;
@@ -41,14 +42,6 @@ const BackendGreeting = (props) => (
   </div>
 );
 
-const BackendEvent = (props) => (
-  <div>
-    <p>
-      Temperature: {props.temperature}
-    </p>
-  </div>
-)
-
 BackendGreeting.propTypes = {
   greeting: PropTypes.string,
 };
@@ -76,10 +69,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <BackendGreeting greeting={this.state.greeting} />
-        {this.state.events.map((events) => (
-          <BackendEvent temperature={events.temperature}/>
-        ))}
+        <div>
+          <Table events={this.state.events} />
+        </div>
       </div>
     );
   }
