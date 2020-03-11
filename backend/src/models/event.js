@@ -4,6 +4,7 @@ const sequelize = require('./sequelize');
 const Event = sequelize.define('events', {
   temperature: Sequelize.FLOAT,
   humidity: Sequelize.FLOAT,
+  tag: Sequelize.STRING,
 }, {
   timestamps: true,
 });
@@ -18,6 +19,7 @@ Event.prototype.toJSON = function toJSON() {
 
     temperature: this.temperature,
     humidity: this.humidity,
+    tag: this.tag,
   };
 };
 

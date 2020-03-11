@@ -14,9 +14,11 @@ exports.list = async (ctx) => {
 
 exports.create = async (ctx) => {
   const params = ctx.request.body;
+  console.log(params);
 
   const event = await database.Event.create({
-    temperature: params.temperature,
+    temperature: params.data.temperature,
+    tag: params.tag.id, 
     humidity: params.humidity,
   });
 
