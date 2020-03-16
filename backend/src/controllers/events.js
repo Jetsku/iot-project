@@ -18,8 +18,8 @@ exports.create = async (ctx) => {
 
   const event = await database.Event.create({
     temperature: params.data.temperature,
+    humidity: params.data.humidity,
     tag: params.tag.id, 
-    humidity: params.humidity,
   });
 
   ctx.body = event;

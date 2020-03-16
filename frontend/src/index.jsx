@@ -101,12 +101,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <>
           <Line data={getData(this.state.events)}
           options={{scales: {xAxes: [{type: 'time',time: {unit: 'hour'}}]}}}/>
-        </div>
-      </div>
+      </>
     );
   }
 }
