@@ -1,11 +1,37 @@
-html, body {
-  margin: 0;
-  height: 100%;
+html,
+body {
+	margin: 0;
+	height: 100%;
 }
 
 #root {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+	img {
+		opacity: .75;
+		transition: opacity .5s ease-in-out;
+	}
+	img:hover {
+		opacity: 1;
+	}
+	html {
+		--text-color-normal: #0a244d;
+		--text-color-light: #8cabd9;
+	}
+
+	html[data-theme='dark'] {
+		--text-color-normal: hsl(210, 10%, 62%);
+		--text-color-light: hsl(210, 15%, 35%);
+		--text-color-richer: hsl(210, 50%, 72%);
+		--text-color-highlight: hsl(25, 70%, 45%);
+	}
+}
+
+.dark {
+	background-color: rgb(20, 20, 20);
 }
