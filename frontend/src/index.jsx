@@ -17,8 +17,37 @@ const backendUrl = `http://${baseUrl}:${BACKEND_PORT}`;
 const getData = (events) => ({
   datasets: [
     {
-      label: 'Temperature/Humidity',
+      label: 'Temperature',
       fill: true,
+      precision: 1,
+      beginAtZero: true,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(150,96,96,0)',
+      borderColor: 'rgba(150,96,96,1)',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(150,96,96,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'rgba(150,96,96,1)',
+      pointHoverBorderColor: 'rgba(100,100,100,1)',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: events.slice(events.length - 50).map(event => {
+        const timestamp = event.timestamp;
+        const temperature = [event.temperature,event.tag]
+        console.log(event);
+        return {x: timestamp, y: temperature[0],};
+      })
+    },
+    {
+      label: 'Humidity',
+      fill: true,
+      beginAtZero: true,
       lineTension: 0.1,
       backgroundColor: 'rgba(75,192,192,0.4)',
       borderColor: 'rgba(75,192,192,1)',
@@ -35,14 +64,16 @@ const getData = (events) => ({
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: events.slice(events.length - 100).map(event => {
+      data: events.slice(events.length - 50).map(event => {
         const timestamp = event.timestamp;
-        const temperature = event.temperature
+        const humidity = event.humidity
         console.log(event);
-        return {x: timestamp, y: temperature};
+        return {x: timestamp, y: humidity};
       })
     }
+    
   ]
+  
 });
 
 
@@ -100,11 +131,15 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.events)
     return (
-      <>
+      <div style={{ position: "relative", width: 1100, height: 800}}>
           <Line data={getData(this.state.events)}
-          options={{scales: {xAxes: [{type: 'time',time: {unit: 'hour'}}]}}}/>
-      </>
+          options={
+            {scales: {xAxes: [{type: 'time',time: {unit: 'hour'}}],yAxes: [{ticks: {suggestedMin: 20}}] }}
+            }/>
+      </div>
+    
     );
   }
 }
