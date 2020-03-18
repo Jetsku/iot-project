@@ -1,6 +1,7 @@
 import requests
 import time
 import random
+domain = 'localhost'
 a = []
 b = 0
 c = 20
@@ -15,6 +16,6 @@ for i in range(100):
     m = {"tag": {"id": "testi"}, "data": {"temperature": c, "humidity": i+random.uniform(0, 0.5)}}
     # r = request and this line sends the data to localhost so in order it to work
     # run this locally or change the source
-    r = requests.post('http://localhost:9000/api/events', json=m)
+    r = requests.post('http://'+domain+':9000/api/events', json=m)
     print(r.text)
     time.sleep(0.01)

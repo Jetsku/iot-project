@@ -1,23 +1,17 @@
-# Koodi101 Project Template
-
-## Forking and cloning the repository
-
-Start by forking the repository
-
-> If you work in a group, only one person needs to fork the repository.
-> The others need to be members of the repository. See [collaborating with other users](#collaborating)
-
-Then clone the forked repository using SSH
-
-```bash
-git clone git@github.com:<user>/project-template.git
-```
-
-> When you use SSH to clone a repository, you need a [private key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on your account which is authorized to pull (read) the repository.
->
-> Using SSH allows you to push (write) to the repository without providing you username and password! Handy, right?
+# Group 3 IoT-Project
 
 ## Running the project
+
+Clone the repository using SSH
+```bash
+git clone git@github.com:Jetsku/iot-project.git
+```
+> This requires that you have added a [private key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on your account which is authorized to pull (read) the repository.
+
+Clone the repository using HTTPS
+```bash
+git clone https://github.com/Jetsku/iot-project.git
+```
 
 Start by going to the cloned repository in a terminal
 
@@ -89,53 +83,46 @@ The database is stored in an [anonymous volume](https://docs.docker.com/storage/
 docker-compose down -v
 ```
 
-> For instance, if you edit the [models](bacend/src/models/), you need to remove the database volume 👆 for the changes to get applied
+> For instance, if you edit the [models](bacend/src/models/), you need to remove the database volume for the changes to get applied
 
-<!-- TODO How to manually edit the database using `psql` -->
+## Using poster
 
-## Running the project with only Node.js
+> Poster uses Python 3, and older versions of it may cause problems
+>
+> Using poster requires that you have an instance of the project running somewhere
 
-Use this [repository](https://github.com/koodi101/project-template-without-containers) instead.
+Poster is a tool that sends post requests to the backend simulating actual data for testing
 
-## Collaborating
-
-> Only the owner of the forked repository in your group needs to add the collaborators
-
-Collaboration is the heart of Open Source software development in GitHub.
-
-After creating/forking a repository, owner may add collaborators to it alternatively in the GitHub repository page by clicking `settings -> collaborators` or by going to the web page by the following URL where `<username>` is replaced by a repository owner's username
-
-Collaborators can clone the owner's repository using SSH and push changes to it.
+Start by going to the poster folder
 
 ```bash
-https://github.com/<username>/project-template/settings/access
+cd poster
 ```
 
-And, by searching usernames of other students (collaborators), owner can invite them as group members to allow them pushing (making changes) to the repository.
+Install dependencies
+> You need pip or pip3 for this
 
-Upon inviting your group members, they will receive the invitation via email. Only after accepting the invitation are they given access to the repository.
+```bash
+pip install -r requirements.txt
+```
 
-[Here is the help page with also images](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository)
+<br>
 
-### Collaborating example
+> poster.py uses localhost by default
 
-- Niklash on is making changes to `src/index.jsx`, committing them and finally pushing them to GitHub.
+<details>
+<summary> If the project is not running locally </summary>
+<br>
 
-![computer1](computer1.gif)
+Edit poster.py with a tool of your choice
 
-> Git commands used:
->
-> - `git add`
-> - `git diff`
-> - `git status`
-> - `git commit -m "message"`
-> - `git push`
+On `line 4`, change the string of the variable `domain` to the domain or IP-address the project is running on
 
-- Severi is then pulling the changes and viewing them.
+</details>
 
-![computer1](computer2.gif)
+Run the program
+> Python 3 can be python or python3
 
-> Git commands used:
->
-> - `git pull`
-> - `git show`
+```bash
+python poster.py
+```
