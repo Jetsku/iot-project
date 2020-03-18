@@ -18,5 +18,5 @@ keys
 # Editors
 .vscode
 
-# Workspaces
-workspace.xml
+# Idea
+.idea
