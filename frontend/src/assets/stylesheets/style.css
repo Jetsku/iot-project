@@ -10,6 +10,23 @@ body {
 	align-items: center;
 	justify-content: center;
 }
+@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed&display=swap);
+
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+	color: white;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+@viewport {
+	width: device-width;
+	zoom: 1.0;
+}
+
+@-ms-viewport {
+	width: device-width;
+}
 
 @media (prefers-color-scheme: dark) {
 	img {
@@ -34,4 +51,10 @@ body {
 
 .dark {
 	background-color: rgb(20, 20, 20);
+}
+
+.chart-container {
+	position: relative;
+	height: 90px;
+	width: 70%;
 }
