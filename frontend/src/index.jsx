@@ -125,8 +125,8 @@ class App extends Component {
 	render() {
 		return (
 			<Fragment>
-				<header>weather</header>
 				<div className="chart-container">
+					<header>weather</header>
 					<Table events={this.state.events} />
 				</div>
 			</Fragment>
