@@ -11,7 +11,6 @@ const { BACKEND_PORT } = process.env;
 const baseUrl = window.location.hostname;
 const backendUrl = `http://${baseUrl}:${BACKEND_PORT}`;
 
-/* ADD YOUR CODE AFTER THIS LINE */
 
 const getData = (events) => ({
 	datasets: [
@@ -75,64 +74,18 @@ const getData = (events) => ({
 	]
 });
 
-const getGreetingFromBackend = async () => {
-	try {
-		const url = `${backendUrl}/api/greeting`;
-		console.log(`Getting greeting from ${url}`);
-		const response = await fetch(url);
-		return response.json();
-	} catch (error) {
-		console.error(error);
-	}
-	return { greeting: 'Could not get greeting from backend' };
-};
 
-const getEvents = async () => {
-	const url = `${backendUrl}/api/events`;
+
+const getEvents = async (id=null, tag=null) => {
+	const idParam = (!id) ? "0" : id;
+	const tagParam = (!tag) ? "" : "&tag=" + tag;
+	const url = `${backendUrl}/api/events?id=${idParam}${tagParam}`;
 	const response = await fetch(url);
 	return response.json();
 };
 
-const BackendGreeting = (props) => (
-	<div>
-		<p>Backend says: {props.greeting}</p>
-	</div>
-);
 
-BackendGreeting.propTypes = {
-	greeting: PropTypes.string
-};
 
-BackendGreeting.defaultProps = {
-	greeting: ''
-};
-
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			greeting: '',
-			events: []
-		};
-	}
-
-	async componentDidMount() {
-		const response = await getGreetingFromBackend();
-		const events = await getEvents();
-		this.setState({ greeting: response.greeting, events: events.results });
-	}
-
-	render() {
-		return (
-			<Fragment>
-				<div className="chart-container">
-					<header>weather</header>
-					<Table events={this.state.events} />
-				</div>
-			</Fragment>
-		);
-	}
-}
 class Table extends React.Component {
 	render() {
 		console.log(this.props.events);
@@ -191,6 +144,38 @@ class Table extends React.Component {
 		);
 	}
 }
-/* DO NOT DELETE AFTER THIS LINE */
+
+
+
+class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			events: []
+		};
+	}
+
+	async getUpdate(id=null, tag=null) {
+		const update = await getEvents(id, tag);
+		this.setState({events: this.state.events + update.results})
+	}
+
+	async componentDidMount() {
+		const events = await getEvents();
+		this.setState({events: events.results});
+	}
+
+	render() {
+		return (
+			<Fragment>
+				<div className="chart-container">
+					<header>weather</header>
+					<Table events={this.state.events} getUpdate = {this.getUpdate}/>
+				</div>
+			</Fragment>
+		);
+	}
+}
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
