@@ -88,7 +88,6 @@ const getEvents = async (id=null, tag=null) => {
 
 class Table extends React.Component {
 	render() {
-		console.log(this.props.events);
 		return (
 			<Line
 				data={getData(this.props.events)}
@@ -153,16 +152,19 @@ class App extends Component {
 		this.state = {
 			events: []
 		};
+		this.getUpdate = this.getUpdate.bind(this);
 	}
 
-	async getUpdate(id=null, tag=null) {
-		const update = await getEvents(id, tag);
-		this.setState({events: this.state.events + update.results})
+	async getUpdate(tag=null) {
+		const update = await getEvents(this.state.events.length, tag);
+		this.setState({events: this.state.events.concat(update.results)})
 	}
 
 	async componentDidMount() {
 		const events = await getEvents();
 		this.setState({events: events.results});
+		setInterval(this.getUpdate, 5000);
+
 	}
 
 	render() {
